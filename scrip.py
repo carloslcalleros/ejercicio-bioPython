@@ -10,5 +10,5 @@ def summarize_contents(filename):
         print("num_records = %i records" % len(records))
         for seq_record in SeqIO.parse(filename,"genbank"):
                 print("ID:",record.id)
-                ##Aqui debe ir lo de location
+                #Falta location
 summarize_contents(filename)
