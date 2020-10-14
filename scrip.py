@@ -3,7 +3,7 @@ from Bio.SeqFeature import SeqFeature, FeatureLocation
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 import os
-#filename es la direccion del archivo o lista de archivos que la funcion tomará para completar su función
+#filename es la direccion de la lista de archivos que la funcion tomará para completar su función
 filename = "/mnt/c/Users/carlo/Desktop/Bionfo/biopython-notebook/notebooks/data/ls_orchid.gbk"
 
 def summarize_contents(filename):
