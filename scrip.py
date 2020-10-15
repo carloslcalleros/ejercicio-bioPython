@@ -8,14 +8,14 @@ filename= "/mnt/c/Users/carlo/Desktop/BioInf/ls_orchid.gbk"
 
 def summarize_contents(filename):
         all_records=[]
-        records = list(SeqIO.parse(filename, "genbank"))
-        print ("Path: ", os.path.dirname(filename))
-        print("num_records = %i records" % len(records))
-        print("\n")
         for seq_record in SeqIO.parse(filename, "genbank"):
                 all_records.append(seq_record.name)
+                records = list(SeqIO.parse(filename, "genbank"))
                 print(counter, ".-")
+                print("\n")
                 print("Name: ", seq_record.name)
+                print("Path: ", os.path.dirname(filename)) 
+                print("num_records = %i records" % len(records))
                 print("ID:",seq_record.id)
                 print("Description: ", seq_record.description)
                 
