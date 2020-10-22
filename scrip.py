@@ -2,10 +2,9 @@ from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 import os
 
-# Archivo .gbk de mi escritorio, cambiar a la dirección del nuevo archivo .gbk a leer
+# Archivo de mi escritorio, se debe de cambiar a la dirección del nuevo archivo .gbk a leer
 filename =  "/mnt/c/Users/carlo/desktop/biopython-notebook/notebooks/data/ls_orchid.gbk"
 
-# Definición de la función summarize_contents
 def summarize_contents(filename):
 	lista = []
 	lista = os.path.split(filename)
