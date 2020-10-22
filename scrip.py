@@ -1,9 +1,10 @@
+import Bio
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 import os
 
 #filename es la direccion de la lista de archivos que la funcion tomará para completar su función
-filename = "/mnt/c/Users/carlo/Desktop/BioInf/ls_orchid.gbk"
+filename = "/mnt/c/Users/carlo/Desktop/ejercicio-biopython/ls_orchid.gbk"
 lista = []
 
 def summarize_contents(filename):
