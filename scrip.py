@@ -3,17 +3,18 @@ from Bio.SeqRecord import SeqRecord
 import os
 
 # Archivo de mi escritorio, se debe de cambiar a la dirección del nuevo archivo .gbk a leer
-filename =  "/mnt/c/Users/carlo/desktop/biopython-notebook/notebooks/data/ls_orchid.gbk"
+filename =  "/mnt/c/Users/carlo/desktop/biopython-notebook/notebooks/data/NC_002703.gbk"
 
 def summarize_contents(filename):
 	lista = []
 	lista = os.path.split(filename)
 	cadena = " "
-	cadena = ("file: "+ lista[1] + "\npath: " + lista[0])
+	cadena = ("\nfile: "+ lista[1] + "\npath: " + lista[0])
 	all_records=[]
 	records = list(SeqIO.parse(filename, "genbank"))
 	cadena += ("\nnum_records: " + str(len(records)))
-	cadena += ("\nrecords:")
+	cadena += ("\nrecord(s):")
+	cadena += ("\n----------------------------------------------------------")
 	for seq_record in SeqIO.parse(filename, "genbank"):
 		all_records.append(seq_record.name)
 		cadena += ("\n- id:" + str(seq_record.id))
