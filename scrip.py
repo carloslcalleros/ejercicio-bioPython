@@ -3,7 +3,7 @@ from Bio.SeqRecord import SeqRecord
 import os
 
 # Archivo de mi escritorio, se debe de cambiar a la dirección del nuevo archivo .gbk a leer
-filename =  "/mnt/c/Users/carlo/desktop/biopython-notebook/notebooks/data/NC_002703.gbk"
+filename =  "/mnt/c/Users/carlo/desktop/biopython-notebook/notebooks/data/AF323668.gbk"
 
 def summarize_contents(filename):
 	lista = []
