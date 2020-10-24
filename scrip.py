@@ -10,13 +10,18 @@ def summarize_contents(filename):
 	lista = os.path.split(filename)
 	cadena = " "
 	cadena = ("\nfile: "+ lista[1] + "\npath: " + lista[0])
-	all_records=[]
-	records = list(SeqIO.parse(filename, "genbank"))
+	File_Extension = []
+	File_Extension = os.path.splitext(filename)
+	if(File_Extension[1]==".gbk"):
+		type_file="genbank"
+	else:
+		type_file="fasta"
+		pass
+	records = list(SeqIO.parse(filename, type_file))
 	cadena += ("\nnum_records: " + str(len(records)))
 	cadena += ("\nrecord(s): ")
 	cadena += ("\n----------------------------------------------------------")
-	for seq_record in SeqIO.parse(filename, "genbank"):
-		all_records.append(seq_record.name)
+	for seq_record in SeqIO.parse(filename, type_file):
 		cadena += ("\n- id: " + str(seq_record.id))
 		cadena += ("\nname: " + seq_record.name)
 		cadena += ("\ndescription: " + str(seq_record.description))
