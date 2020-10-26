@@ -29,3 +29,4 @@ def summarize_contents(filename):
 if __name__=="__main__":
 	resultado = summarize_contents(filename)
 	print(resultado)
+
