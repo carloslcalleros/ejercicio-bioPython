@@ -3,7 +3,7 @@ from Bio.SeqRecord import SeqRecord
 import os
 
 # Archivo de mi escritorio, se debe de cambiar a la dirección del nuevo archivo .gbk o .fasta a leer
-filename = "/mnt/c/users/carlo/desktop/ejercicio-biopython/data/NC_002703.gbk" 
+filename = os.path.abspath("data/NC_002703.gbk") 
 
 def summarize_contents(filename):
 	File_List = []
