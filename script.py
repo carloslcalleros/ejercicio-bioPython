@@ -2,7 +2,7 @@ from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 import os
 
-# Archivo de mi escritorio, se debe de cambiar a la dirección del nuevo archivo .gbk o .fasta a leer
+# NC_002703.gbk solo es un archivo dentro de la carpeta data, se puede cambiar por otros archivos que esten dentro de esta carpeta 
 filename = os.path.abspath("data/NC_002703.gbk") 
 
 def summarize_contents(filename):
