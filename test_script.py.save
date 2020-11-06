@@ -32,23 +32,9 @@ class Prueba_Funcion_1(unittest.TestCase):
 
 class Prueba_Funcion_2(unittest.TestCase):
 	def test_concatenate_and_get_reverse_of_complement(self):
-		
 		Ex1 = Seq("ACCTAAAATGGTACGAGTCGAT")
 		CR = concatenate_and_get_reverse_of_complement("ATCGACTC", "GTACCATTTTAGGT")
 		self.assertEqual(Ex1,CR)
 		
 		Ex2 = Seq("CCTATTTCTCGTATGTTGTATCTAAATTGTAGTATGTGTAT")
-		CR = concatenate_and_get_reverse_of_complement("ATACacatactacaAtttAGATA","CAaCATacgagaaatAGG")
-		self.assertEqual(Ex2,CR)
-
-		Ex3 = Seq("ACCTAAAATGGTACTATCTAAATTGTAGTATGTGTAT")
-		CR = concatenate_and_get_reverse_of_complement("ATACacatactacaAtttAGATA","GTACCATTTTAGGT")
-		self.assertEqual(Ex3,CR)
-
-		Ex4 = Seq("GAGTCGATTATCTAAATTGTAGTATGTGTAT")
-		CR = concatenate_and_get_reverse_of_complement("ATACacatactacaAtttAGATA","ATCGACTC")
-		self.assertEqual(Ex4,CR)
-
-		Ex5 = Seq("CCTATTTCTCGTATGTTGGAGTCGAT")
-		CR = concatenate_and_get_reverse_of_complement("ATCGACTC", "CAaCATacgagaaatAGG")
-		self.assertEqual(Ex5,CR)
+		CR = 

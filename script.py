@@ -8,7 +8,7 @@ filename = os.path.abspath("data/NC_002703.gbk")
 
 #Secuencias ejemplo para probar la función concatenate_and_get_reverse_of_complement
 seq1="ATCGACTC"
-seq2="GTACCATTTTAGGT"
+seq2="CAaCATacgagaaatAGG"
 
 #----------------------------FUNCIÓN 1-----------------------------------
 def summarize_contents(filename):
@@ -49,8 +49,8 @@ if __name__ == "__main__":
 def concatenate_and_get_reverse_of_complement(secuencia1,secuencia2):
 	concatenate = Seq(secuencia1 + secuencia2)
 	reverse = concatenate.reverse_complement()
-	return reverse
+	return reverse.upper()
 
 if __name__ == "__main__":
 	resultado = concatenate_and_get_reverse_of_complement(seq1,seq2)
-	print(resultado.upper())
+	print(resultado)
