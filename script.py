@@ -10,8 +10,7 @@ filename = os.path.abspath("data/NC_002703.gbk")
 #Secuencias ejemplo para probar la función concatenate_and_get_reverse_of_complement
 seq1="GATCA"
 seq2="GACACA"
-DNA = "ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG"
-
+DNA = "ATGGCCTAGTTGAGCAgTATATAA"
 #----------------------------FUNCIÓN 1-----------------------------------
 
 def summarize_contents(filename):
@@ -62,7 +61,7 @@ if __name__ == "__main__":
 
 def print_protein_and_codons_using_standard_table(seq):
 	sequence = Seq(seq)	
-	dictionary = {'mRNA': sequence.transcribe(),'proteins':[], 'stop_codons': []}
+	dictionary = {'mRNA': sequence.upper().transcribe(),'proteins':[], 'stop_codons': []}
 	aminoacids_seq = sequence.translate(table = 1)	
 # Exportando codones de inicio y de parada de la tabla estandar
 	Table = CodonTable.unambiguous_dna_by_name["Standard"]

@@ -1,11 +1,13 @@
-
+import Bio
 import unittest
 import os
 from Bio.Seq import Seq
 from script import summarize_contents
 from script import concatenate_and_get_reverse_of_complement
+from script import print_protein_and_codons_using_standard_table
 
 class Prueba_Funcion_1(unittest.TestCase):
+	
 	def test_summarize_contents(self):
 		dic1 = {'File:': 'AF323668.gbk', 'Path:': os.path.abspath('data'), 'Num_records:': 1, 'Names:': ['AF323668'], 'IDs:': ['AF323668.1'], 'Descriptions': ['Bacteriophage bIL285, complete genome']}
 		s = summarize_contents(os.path.abspath("data/AF323668.gbk"))
@@ -57,3 +59,29 @@ class Prueba_Funcion_1(unittest.TestCase):
 		self.assertRaises(Exception,concatenate_and_get_reverse_of_complement, "CAudT T", "ACCUCCAAG GAATTA TTTAA ")
 		self.assertRaises(Exception,concatenate_and_get_reverse_of_complement, None, None)
 		self.assertRaises(Exception,concatenate_and_get_reverse_of_complement, "DNAGTU", "CARLLOSTuag")
+
+	def test_print_protein_and_codons_using_standard_table(self):
+		
+		E1 = {'mRNA': Seq('AUGGCCAUUGUAAUGGGCCGCUGAAAGGGUGCCCGAUAG'), 'proteins': [Seq('MAIVMGR')], 'stop_codons': [Seq('TGA')]}
+		P = print_protein_and_codons_using_standard_table("ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG")
+		self.assertEqual(E1,P)
+
+		E2 = {'mRNA': Seq('AUGGCCGCAGCAGCAGCAGACCGCGGCCGCUGAAAGGGUGCCCGAUAG'), 'proteins': [Seq('MAAAAADRGR')], 'stop_codons': [Seq('TGA')]}
+		P = print_protein_and_codons_using_standard_table("ATGGCCGCAGCAgcagcaGaCCGCGGCCGCTGAAAGGGTGCCCGATAG")
+		self.assertEqual(E2,P)
+		
+		E3 = {'mRNA': Seq('AUGGCCUAGUUGAGCAGUAUAUAA'), 'proteins': [Seq('MA'), Seq('LSSI')], 'stop_codons': [Seq('TAG'), Seq('TAA')]}
+		P = print_protein_and_codons_using_standard_table("ATGGCCTAGTTGAGCAgTATATAA")
+		self.assertEqual(E3,P)
+
+		E4 = {'mRNA': Seq('AUGGCCCGACGUGAUAGUUGCGCAUGCACAGCAUCUAAUUAA'), 'proteins': [Seq('MARRDSCACTASN')], 'stop_codons': [Seq('TAA')]}
+		P = print_protein_and_codons_using_standard_table("ATGGCCcgacgtgaTAGTTGcgcatgcacAGCATCTAaTTAA")
+		self.assertEqual(E4,P)
+
+		E5 = {'mRNA': Seq('AUGCAUCUAAUUAAA'), 'proteins': [Seq('MHLIK')], 'stop_codons': 'No stop codons were found un this sequence'}
+		P = print_protein_and_codons_using_standard_table("ATGCATCTAaTTaAA")
+		self.assertEqual(E5,P)
+		
+		self.assertRaises(Exception,print_protein_and_codons_using_standard_table, "ACCUCCAAGGAATTATTTAA ")
+		self.assertRaises(Exception,print_protein_and_codons_using_standard_table, None)
+
