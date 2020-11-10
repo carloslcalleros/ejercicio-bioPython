@@ -84,4 +84,29 @@ class Prueba_Funcion_1(unittest.TestCase):
 		self.assertRaises(Exception,print_protein_and_codons_using_standard_table, "ACCUCCAAGGAATTATTTAA ")
 		self.assertRaises(Exception,print_protein_and_codons_using_standard_table, None)
 	
+	def test_print_protein_and_codons_using_mitocondrial_yeast_table (self):
+
+		Ej1 ={'mRNA': Seq('AUGGCCAUUGUAAUGGGCCGCUGAAAGGGUGCCCGAUAG'), 'proteins': [Seq('MAIVMGRWKGAR')], 'stop_codons': [Seq('TAG')]}
+		P = print_protein_and_codons_using_mitocondrial_yeast_table("ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG")
+		self.assertEqual(Ej1,P)
+
+		Ej2 ={'mRNA': Seq('AUGGCCGCAGCAGCAGCAGACCGCGGCCGCUGAAAGGGUGCCCGAUAG'), 'proteins': [Seq('MAAAAADRGRWKGAR')], 'stop_codons': [Seq('TAG')]} 
+		P = print_protein_and_codons_using_mitocondrial_yeast_table("ATGGCCGCAGCAgcagcaGaCCGCGGCCGCTGAAAGGGTGCCCGATAG")
+		self.assertEqual(Ej2,P)
+
+		Ej3 = {'mRNA': Seq('AUGGCCUAGUUGAGCAGUAUAUAA'), 'proteins': [Seq('MA'), Seq('M')], 'stop_codons': [Seq('TAG'), Seq('TAA')]}
+		P = print_protein_and_codons_using_mitocondrial_yeast_table("ATGGCCTAGTTGAGCAgTATATAA")	
+		self.assertEqual(Ej3,P)
+
+		Ej4 ={'mRNA': Seq('AUGGCCCGACGUGAUAGUUGCGCAUGCACAGCAUCUAAUUAA'), 'proteins': [Seq('MARRDSCACTASN')], 'stop_codons': [Seq('TAA')]}
+		P = print_protein_and_codons_using_mitocondrial_yeast_table("ATGGCCcgacgtgaTAGTTGcgcatgcacAGCATCTAaTTAA")
+		self.assertEqual(Ej4,P)
+
+		Ej5 = {'mRNA': Seq('AUGCAUCUAAUUAAA'), 'proteins': [Seq('MHTIK')], 'stop_codons': 'No stop codons were found un this sequence'}
+		P = print_protein_and_codons_using_mitocondrial_yeast_table("ATGCATCTAaTTaAA")
+		self.assertEqual(Ej5,P)
+
+		self.assertRaises(Exception,print_protein_and_codons_using_mitocondrial_yeast_table, "ACCUCCAAGGAATTATTTAA ")
+		self.assertRaises(Exception,print_protein_and_codons_using_mitocondrial_yeast_table, None)
+	
 	

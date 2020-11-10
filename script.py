@@ -11,11 +11,8 @@ filename = os.path.abspath("data/NC_002703.gbk")
 seq1="GATCA"
 seq2="GACACA"
 DNA = "ATGGCCTAGTTGAGCAgTATATAA"
-#h="ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG"
-#h="ATGGCCGCAGCAgcagcaGaCCGCGGCCGCTGAAAGGGTGCCCGATAG"
-#h="ATGGCCTAGTTGAGCAgTATATAA"
-#h="ATGGCCcgacgtgaTAGTTGcgcatgcacAGCATCTAaTTAA"
-h="ATGCATCTAaTTaAA"
+h="ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG"
+
 #----------------------------FUNCIÓN 1-----------------------------------
 
 def summarize_contents(filename):
@@ -48,7 +45,7 @@ def summarize_contents(filename):
 
 if __name__ == "__main__":
 	resultados = summarize_contents(filename)
-#	print(resultados)
+	print(resultados)
 
 
 #----------------------------FUNCIÓN 2-----------------------------------
@@ -60,7 +57,7 @@ def concatenate_and_get_reverse_of_complement(secuencia1,secuencia2):
 
 if __name__ == "__main__":
 	resultados = concatenate_and_get_reverse_of_complement(seq1,seq2)
-#	print(resultados)
+	print(resultados)
 
 #--------------------------FUNCIÓN 3------------------------------------
 
@@ -106,7 +103,7 @@ def print_protein_and_codons_using_standard_table(seq):
 
 if __name__ == "__main__":
 	resultado = print_protein_and_codons_using_standard_table(h)
-#	print(resultado)
+	print(resultado)
 
 #--------------------------- FUNCIÓN 4 -----------------------------------
 
