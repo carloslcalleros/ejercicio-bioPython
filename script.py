@@ -10,8 +10,10 @@ filename = os.path.abspath("data/NC_002703.gbk")
 #Secuencias ejemplo para probar la función concatenate_and_get_reverse_of_complement
 seq1="GATCA"
 seq2="GACACA"
-DNA = "ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAGATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG"
+DNA = "ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG"
+
 #----------------------------FUNCIÓN 1-----------------------------------
+
 def summarize_contents(filename):
 	File_List = []
 	File_Extension = []
@@ -42,7 +44,7 @@ def summarize_contents(filename):
 
 if __name__ == "__main__":
 	resultados = summarize_contents(filename)
-#	print(resultados)
+	print(resultados)
 
 
 #----------------------------FUNCIÓN 2-----------------------------------
@@ -53,47 +55,49 @@ def concatenate_and_get_reverse_of_complement(secuencia1,secuencia2):
 	return reverse.upper()
 
 if __name__ == "__main__":
-	resultado = concatenate_and_get_reverse_of_complement(seq1,seq2)
-#	print(resultado)
+	resultados = concatenate_and_get_reverse_of_complement(seq1,seq2)
+	print(resultados)
 
 #--------------------------FUNCIÓN 3------------------------------------
 
 def print_protein_and_codons_using_standard_table(seq):
 	sequence = Seq(seq)	
-	dictionary = {'mRNA': sequence.transcribe(),'Proteins':[], 'Stop_codons': []}
+	dictionary = {'mRNA': sequence.transcribe(),'proteins':[], 'stop_codons': []}
 	aminoacids_seq = sequence.translate(table = 1)	
 # Exportando codones de inicio y de parada de la tabla estandar
 	Table = CodonTable.unambiguous_dna_by_name["Standard"]
-	start_codon, stop_codon = False, False
-	begin, end = None, None
+	start_codon = False
+	stop_codon = False
+	begin = None
+	end = None
 	c = 0
 	while c < len(aminoacids_seq):
 		if (sequence[c*3:c*3+3].upper() == "TTG") or (sequence[c*3:c*3+3].upper() == "CTG") or (sequence[c*3:c*3+3].upper() == "ATG"):
 			start_codon = True
 			begin = c
 			if c+1 == len(aminoacids_seq):
-				dictionary['Proteins'].append(aminoacids_seq[c:])
+				dictionary['proteins'].append(aminoacids_seq[c:])
 				break
 			k = c+1
 			while k < len(aminoacids_seq):
 				if (sequence[k*3:k*3+3].upper() == "TAA") or (sequence[k*3:k*3+3].upper() == "TGA") or (sequence[k*3:k*3+3].upper() == "TAG"):
 					stop_codon = True
 					end = k
-					dictionary['Proteins'].append(aminoacids_seq[c:k])
-					dictionary['Stop_codons'].append(sequence[k*3:k*3+3])
+					dictionary['proteins'].append(aminoacids_seq[c:k])
+					dictionary['stop_codons'].append(sequence[k*3:k*3+3])
 					start_codon, stop_codon = False, False
 					c = k
 					break
 				k += 1
 		if(start_codon == True and stop_codon == False):
-			dictionary['Proteins'].append(aminoacids_seq[c:])
+			dictionary['proteins'].append(aminoacids_seq[c:])
 			break
 		c += 1
 
-	if (dictionary['Proteins'] == []):
+	if (dictionary['proteins'] == []):
 		dictionary['proteins'] = "No proteins were found in this sequence"
-	if dictionary['Stop_codons'] == []:
-		dictionary['Stop_codons'] = "No stop codons were found un this sequence"
+	if dictionary['stop_codons'] == []:
+		dictionary['stop_codons'] = "No stop codons were found un this sequence"
 	return dictionary
 
 if __name__ == "__main__":
