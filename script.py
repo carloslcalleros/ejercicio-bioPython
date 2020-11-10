@@ -60,12 +60,8 @@ if __name__ == "__main__":
 
 def print_protein_and_codons_using_standard_table(seq):
 	sequence = Seq(seq)	
-	dictionary = {}
-	dictionary['mRNA'] = sequence.transcribe()
-	dictionary['Proteins'] = []
-	dictionary['Stop_codons'] = []
-		
-	aminoacids_seq = sequence.translate(table = 1, stop_symbol = "$")	
+	dictionary = {'mRNA': sequence.transcribe(),'Proteins':[], 'Stop_codons': []}
+	aminoacids_seq = sequence.translate(table = 1)	
 # Exportando codones de inicio y de parada de la tabla estandar
 	Table = CodonTable.unambiguous_dna_by_name["Standard"]
 	start_codon, stop_codon = False, False
