@@ -1,3 +1,4 @@
+
 import unittest
 import os
 from Bio.Seq import Seq
@@ -30,7 +31,6 @@ class Prueba_Funcion_1(unittest.TestCase):
 		s = summarize_contents(os.path.abspath("data/opuntia.fasta"))
 		self.assertDictEqual(dic6, s)
 
-class Prueba_Funcion_2(unittest.TestCase):
 	def test_concatenate_and_get_reverse_of_complement(self):
 		
 		Ex1 = Seq("ACCTAAAATGGTACGAGTCGAT")
@@ -52,3 +52,8 @@ class Prueba_Funcion_2(unittest.TestCase):
 		Ex5 = Seq("CCTATTTCTCGTATGTTGGAGTCGAT")
 		CR = concatenate_and_get_reverse_of_complement("ATCGACTC", "CAaCATacgagaaatAGG")
 		self.assertEqual(Ex5,CR)
+
+		self.assertRaises(Exception,concatenate_and_get_reverse_of_complement,"")
+		self.assertRaises(Exception,concatenate_and_get_reverse_of_complement, "CAudT T", "ACCUCCAAG GAATTA TTTAA ")
+		self.assertRaises(Exception,concatenate_and_get_reverse_of_complement, None, None)
+		self.assertRaises(Exception,concatenate_and_get_reverse_of_complement, "DNAGTU", "CARLLOSTuag")
