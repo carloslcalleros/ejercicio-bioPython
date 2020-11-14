@@ -6,7 +6,9 @@ from script import concatenate_and_get_reverse_of_complement
 from script import print_protein_and_codons_using_standard_table
 from script import print_protein_and_codons_using_mitocondrial_yeast_table
 
-class Prueba_Funcion_1(unittest.TestCase):
+class Prueba(unittest.TestCase):
+
+#----------------------------------------------------------------FUNCIÓN 1----------------------------------------------------------------------------------
 	def test_summarize_contents_1(self):
 		dic1 = {'File:': 'AF323668.gbk', 'Path:': os.path.abspath('data'), 'Num_records:': 1, 'Names:': ['AF323668'], 'IDs:': ['AF323668.1'], 'Descriptions': ['Bacteriophage bIL285, complete genome']}
 		s = summarize_contents(os.path.abspath("data/AF323668.gbk"))
@@ -36,6 +38,8 @@ class Prueba_Funcion_1(unittest.TestCase):
 		dic6 = {'File:': 'opuntia.fasta', 'Path:': os.path.abspath('data'), 'Num_records:': 7, 'Names:': ['gi|6273291|gb|AF191665.1|AF191665', 'gi|6273290|gb|AF191664.1|AF191664', 'gi|6273289|gb|AF191663.1|AF191663', 'gi|6273287|gb|AF191661.1|AF191661', 'gi|6273286|gb|AF191660.1|AF191660', 'gi|6273285|gb|AF191659.1|AF191659', 'gi|6273284|gb|AF191658.1|AF191658'], 'IDs:': ['gi|6273291|gb|AF191665.1|AF191665', 'gi|6273290|gb|AF191664.1|AF191664', 'gi|6273289|gb|AF191663.1|AF191663', 'gi|6273287|gb|AF191661.1|AF191661', 'gi|6273286|gb|AF191660.1|AF191660', 'gi|6273285|gb|AF191659.1|AF191659', 'gi|6273284|gb|AF191658.1|AF191658'], 'Descriptions': ['gi|6273291|gb|AF191665.1|AF191665 Opuntia marenae rpl16 gene; chloroplast gene for chloroplast product, partial intron sequence', 'gi|6273290|gb|AF191664.1|AF191664 Opuntia clavata rpl16 gene; chloroplast gene for chloroplast product, partial intron sequence', 'gi|6273289|gb|AF191663.1|AF191663 Opuntia bradtiana rpl16 gene; chloroplast gene for chloroplast product, partial intron sequence', 'gi|6273287|gb|AF191661.1|AF191661 Opuntia kuehnrichiana rpl16 gene; chloroplast gene for chloroplast product, partial intron sequence', 'gi|6273286|gb|AF191660.1|AF191660 Opuntia echinacea rpl16 gene; chloroplast gene for chloroplast product, partial intron sequence', 'gi|6273285|gb|AF191659.1|AF191659 Opuntia pachypus rpl16 gene; chloroplast gene for chloroplast product, partial intron sequence', 'gi|6273284|gb|AF191658.1|AF191658 Opuntia subulata rpl16 gene; chloroplast gene for chloroplast product, partial intron sequence']}
 		s = summarize_contents(os.path.abspath("data/opuntia.fasta"))
 		self.assertDictEqual(dic6, s)
+
+#----------------------------------------------------------------FUNCIÓN 2----------------------------------------------------------------------------------
 
 	def test_concatenate_and_get_reverse_of_complement_1(self):
 		Ex1 = Seq("ACCTAAAATGGTACGAGTCGAT")
@@ -73,7 +77,9 @@ class Prueba_Funcion_1(unittest.TestCase):
 
 	def test_concatenate_and_get_reverse_of_complement_9(self):
 		self.assertRaises(Exception,concatenate_and_get_reverse_of_complement, "DNAGTU", "CARLLOSTuag")
-#------------------------------------------------------------------------FUNCION 4----------------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------FUNCION 3----------------------------------------------------------------------------------------
+
 	def test_print_protein_and_codons_using_standard_table_1 (self):
 		E1 = {'mRNA': Seq('AUGGCCAUUGUAAUGGGCCGCUGAAAGGGUGCCCGAUAG'), 'proteins': [Seq('MAIVMGR')], 'stop_codons': [Seq('TGA')]}
 		P = print_protein_and_codons_using_standard_table("ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG")
@@ -104,7 +110,9 @@ class Prueba_Funcion_1(unittest.TestCase):
 	
 	def test_print_protein_and_codons_using_standard_table_7 (self):	
 		self.assertRaises(Exception,print_protein_and_codons_using_standard_table, None)
-#---------------------------------------------------------------------FUNCION 5---------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------FUNCION 4---------------------------------------------------------------------------------------
+
 	def test_print_protein_and_codons_using_mitocondrial_yeast_table_1 (self):
 		Ej1 ={'mRNA': Seq('AUGGCCAUUGUAAUGGGCCGCUGAAAGGGUGCCCGAUAG'), 'proteins': [Seq('MAIVMGRWKGAR')], 'stop_codons': [Seq('TAG')]}
 		P = print_protein_and_codons_using_mitocondrial_yeast_table("ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG")
