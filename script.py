@@ -150,3 +150,15 @@ def print_protein_and_codons_using_mitocondrial_yeast_table(seq):
 if __name__ == "__main__":
 	resultado = print_protein_and_codons_using_mitocondrial_yeast_table(h)
 	print(resultado)
+
+#--------------------FUNCIÓN 5---------------------------------
+def extract_sequences(file):
+	x = "data/" + file
+	direccion = os.path.abspath(x)
+	records = list(SeqIO.parse(direccion, "fasta"))
+	for i in range(len(records)):
+		name = "sequence" + str(i+1) + ".fasta"
+		filename = open(name, "w")
+		filename.write('>' + records[i].id + os.linesep)
+		filename.write(str(records[i].seq))
+		filename.close()
