@@ -152,7 +152,7 @@ if __name__ == "__main__":
 	print(resultado)
 
 #--------------------FUNCIÓN 5---------------------------------
-def extract_sequences(file):
+def extract_sequences(file): 
 	x = "data/" + file
 	direccion = os.path.abspath(x)
 	records = list(SeqIO.parse(direccion, "fasta"))
