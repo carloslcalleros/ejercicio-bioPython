@@ -162,3 +162,6 @@ def extract_sequences(file):
 		filename.write('>' + records[i].id + os.linesep)
 		filename.write(str(records[i].seq))
 		filename.close()
+
+if __name__ == "__main__":
+	extract_sequences("sequences.fasta")
