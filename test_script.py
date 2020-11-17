@@ -132,10 +132,10 @@ class Prueba(unittest.TestCase):
 		num_records = len(File_records)
 
 		path = os.path.abspath("ejercicio-biopython")
-		head = os.path.split(path)
+		route = os.path.split(path)
 	
 		extract_sequences("data/sequences.fasta")  
-		num_Files = len(glob.glob1(head[0], "Sequence_No_*.fasta"))
+		num_Files = len(glob.glob1(route[0], "Sequence_No_*.fasta"))
 
 		c=0
 		while c < num_records:
