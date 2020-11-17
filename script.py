@@ -1,15 +1,16 @@
 from Bio import SeqIO
-from Bio.Seq import Seq
+from Bio.Seq import Seq,reverse_complement
 from Bio.SeqRecord import SeqRecord
 import os
 from Bio.Data import CodonTable
+
 
 # NC_002703.gbk solo es un archivo dentro de la carpeta data, se puede cambiar por otros archivos que esten dentro de esta carpeta 
 filename = os.path.abspath("data/NC_002703.gbk") 
 
 #Secuencias ejemplo para probar la función concatenate_and_get_reverse_of_complement
 seq1="GATCA"
-seq2="GACACA"
+seq2="GATCA"
 DNA = "ATGGCCTAGTTGAGCAgTATATAA"
 h="ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG"
 
@@ -152,16 +153,42 @@ if __name__ == "__main__":
 	print(resultado)
 
 #--------------------FUNCIÓN 5---------------------------------
-def extract_sequences(file): 
+def extract_sequences(file, formato): 
 	x = "data/" + file
+	File_Extension = os.path.splitext(file)
 	direccion = os.path.abspath(x)
 	records = list(SeqIO.parse(direccion, "fasta"))
 	for i in range(len(records)):
 		name = "sequence" + str(i+1) + ".fasta"
-		filename = open(name, "w")
-		filename.write('>' + records[i].id + os.linesep)
-		filename.write(str(records[i].seq))
-		filename.close()
+		file = open(name, "w")
+		file.write(records[i].id + os.linesep)
+		file.write(str(records[i].seq))
+		file.close()
+
+#if __name__ == "__main__":
+#	extract_sequences("sequences.fasta", ".fasta")
+
+#-----------------------FUNCION 6----------------------------
+def extract_sequences_revcomp(file):
+	x = "data/" + file
+	File_Extension = os.path.splitext(file)
+	if (File_Extension[1] != ".fasta"):
+		print("Error el formato del archivo debe de ser .fasta")
+	direccion = os.path.abspath(x)
+	records = list(SeqIO.parse(direccion, "fasta"))
+	for i in range(len(records)):
+		name = "sequence_revcomp" + str(i+1) + ".fasta"
+		file = open(name, "w")
+		file.write(records[i].id)
+		Nucleotides = Seq(str(records[i].seq))
+#		c=0
+#		while c < len(Nucleotides):
+#			if (Nucleotides[c].upper == "M"):
+#				print("Error la secuencia debe de ser de nucleotidos")			
+		R = Nucleotides.reverse_complement()
+		file.write(str( os.linesep + R))
+		file.close()
 
 if __name__ == "__main__":
-	extract_sequences("sequences.fasta")
+	extract_sequences_revcomp("m_cold.fasta")
+
