@@ -154,8 +154,8 @@ if __name__ == "__main__":
 
 #--------------------FUNCIÓN 5---------------------------------
 def extract_sequences(file, formato): 
-	Archive = "data/" + file
-	Direction = os.path.abspath(Archive)
+	#Archive = "data/" + file
+	Direction = os.path.abspath(file)
 	File_records = list(SeqIO.parse(Direction, "fasta"))
 	for i in range(len(File_records)):
 		name_file = "Sequence_No_" + str(i+1) + ".fasta"
@@ -165,15 +165,15 @@ def extract_sequences(file, formato):
 		file.close()
 
 if __name__ == "__main__":
-	extract_sequences("sequences.fasta", ".fasta")
+	extract_sequences("data/sequences.fasta", ".fasta")
 
 #-----------------------FUNCION 6----------------------------
 def extract_sequences_revcomp(file):
-	Archive = "data/" + file
+	#Archive = "data/" + file
 	Extention = os.path.splitext(file)
 	if (Extention[1] != ".fasta"):
 		print("Error el formato del archivo debe de ser .fasta")
-	Direction = os.path.abspath(Archive)
+	Direction = os.path.abspath(file)
 	File_records = list(SeqIO.parse(Direction, "fasta"))
 	
 	error = False
@@ -195,5 +195,5 @@ def extract_sequences_revcomp(file):
 		print("Error: la secuencia contenida en el archivo debe de ser de nucleotidos")
 
 if __name__ == "__main__":
-	extract_sequences_revcomp("sequences.fasta")
+	extract_sequences_revcomp("data/sequences.fasta")
 
