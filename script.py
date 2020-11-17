@@ -153,7 +153,7 @@ if __name__ == "__main__":
 	print(resultado)
 
 #--------------------FUNCIÓN 5---------------------------------
-def extract_sequences(file, formato): 
+def extract_sequences(file): 
 	
 	Direction = os.path.abspath(file)
 	File_records = list(SeqIO.parse(Direction, "fasta"))
@@ -161,12 +161,12 @@ def extract_sequences(file, formato):
 	for i in range(len(File_records)):
 		name_file = "Sequence_No_" + str(i+1) + ".fasta"
 		file = open(name_file, "w")
-		file.write(File_records[i].id + os.linesep)
+		file.write('>'+File_records[i].id + os.linesep)
 		file.write(str(File_records[i].seq))
 		file.close()
 
 if __name__ == "__main__":
-	extract_sequences("data/sequences.fasta", ".fasta")
+	extract_sequences("data/ls_orchid.fasta")
 
 #-----------------------FUNCION 6----------------------------
 def extract_sequences_revcomp(file):

@@ -1,14 +1,17 @@
 import unittest
 import os
+import glob
+from Bio import SeqIO
 from Bio.Seq import Seq
 from script import summarize_contents
 from script import concatenate_and_get_reverse_of_complement
 from script import print_protein_and_codons_using_standard_table
 from script import print_protein_and_codons_using_mitocondrial_yeast_table
+from script import extract_sequences
 
 class Prueba(unittest.TestCase):
 
-#----------------------------------------------------------------FUNCIÓN 1----------------------------------------------------------------------------------
+#---------------------------------------------------------------------FUNCIÓN 1----------------------------------------------------------------------------------
 	def test_summarize_contents(self):
 		dic1 = {'File:': 'AF323668.gbk', 'Path:': os.path.abspath('data'), 'Num_records:': 1, 'Names:': ['AF323668'], 'IDs:': ['AF323668.1'], 'Descriptions': ['Bacteriophage bIL285, complete genome']}
 		s = summarize_contents(os.path.abspath("data/AF323668.gbk"))
@@ -35,7 +38,7 @@ class Prueba(unittest.TestCase):
 		s = summarize_contents(os.path.abspath("data/opuntia.fasta"))
 		self.assertDictEqual(dic6, s)
 
-#----------------------------------------------------------------FUNCIÓN 2----------------------------------------------------------------------------------
+#---------------------------------------------------------------------FUNCIÓN 2----------------------------------------------------------------------------------
 
 	def test_concatenate_and_get_reverse_of_complement(self):
 		Ex1 = Seq("ACCTAAAATGGTACGAGTCGAT")
@@ -66,7 +69,7 @@ class Prueba(unittest.TestCase):
 
 		self.assertRaises(Exception,concatenate_and_get_reverse_of_complement, "DNAGTU", "CARLLOSTuag")
 
-#------------------------------------------------------------------------FUNCION 3----------------------------------------------------------------------------------------
+#---------------------------------------------------------------------FUNCION 3----------------------------------------------------------------------------------------
 
 	def test_print_protein_and_codons_using_standard_table(self):
 		E1 = {'mRNA': Seq('AUGGCCAUUGUAAUGGGCCGCUGAAAGGGUGCCCGAUAG'), 'proteins': [Seq('MAIVMGR')], 'stop_codons': [Seq('TGA')]}
@@ -120,4 +123,27 @@ class Prueba(unittest.TestCase):
 		
 		self.assertRaises(Exception,print_protein_and_codons_using_mitocondrial_yeast_table, None)
 	
+#---------------------------------------------------------------------FUNCION 5---------------------------------------------------------------------------------------
+	def test_extract_sequences(self):
+		
+		Direction = os.path.abspath("data/sequences.fasta")
+
+		File_records = list(SeqIO.parse(Direction, "fasta"))
+		num_records = len(File_records)
+
+		path = os.path.abspath("ejercicio-biopython")
+		head = os.path.split(path)
 	
+		extract_sequences("data/sequences.fasta")  
+		num_Files = len(glob.glob1(head[0], "Sequence_No_*.fasta"))
+
+		c=0
+		while c < num_records:
+			Sequence = str('>' + File_records[c].id) + "\n" + str(File_records[c].seq)
+			archive = open(f"Sequence_No_{c+1}.fasta", "r") 
+			Test_Sequence = str(archive.read())
+			archive.close()
+			self.assertEqual(Sequence, Test_Sequence )
+			c+=1
+		
+		self.assertEqual(num_Files, num_records)
