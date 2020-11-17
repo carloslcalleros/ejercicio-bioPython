@@ -112,7 +112,7 @@ def print_protein_and_codons_using_mitocondrial_yeast_table(seq):
 	sequence = Seq(seq)	
 	dictionary = {'mRNA': sequence.upper().transcribe(),'proteins':[], 'stop_codons': []}
 	aminoacids_seq = sequence.translate(table = 3)	
-# Exportando codones de inicio y de parada de la tabla estandar
+# Exportando codones de inicio y de parada de la tabla de mictocondria de levadura
 	Table = CodonTable.unambiguous_dna_by_name["Yeast Mitochondrial"]
 	start_codon = False
 	stop_codon = False
@@ -176,19 +176,25 @@ def extract_sequences_revcomp(file):
 		print("Error el formato del archivo debe de ser .fasta")
 	direccion = os.path.abspath(x)
 	records = list(SeqIO.parse(direccion, "fasta"))
+	
+	error = False
+	
 	for i in range(len(records)):
-		name = "sequence_revcomp" + str(i+1) + ".fasta"
-		file = open(name, "w")
-		file.write(records[i].id)
 		Nucleotides = Seq(str(records[i].seq))
-#		c=0
-#		while c < len(Nucleotides):
-#			if (Nucleotides[c].upper == "M"):
-#				print("Error la secuencia debe de ser de nucleotidos")			
-		R = Nucleotides.reverse_complement()
-		file.write(str( os.linesep + R))
-		file.close()
+		if (Nucleotides[i] == "M"):
+				error=True
+				break
+		else:	
+			name = "sequence_revcomp" + str(i+1) + ".fasta"
+			file = open(name, "w")
+			file.write(">" + records[i].id)
+			R = Nucleotides.reverse_complement()
+			file.write(str( os.linesep + R))
+			file.close()
+
+	if (error==True):
+		print("Error: la secuencia contenida en el archivo debe de ser de nucleotidos")
 
 if __name__ == "__main__":
-	extract_sequences_revcomp("m_cold.fasta")
+	extract_sequences_revcomp("sequences.fasta")
 
