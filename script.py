@@ -154,40 +154,39 @@ if __name__ == "__main__":
 
 #--------------------FUNCIÓN 5---------------------------------
 def extract_sequences(file, formato): 
-	x = "data/" + file
-	File_Extension = os.path.splitext(file)
-	direccion = os.path.abspath(x)
-	records = list(SeqIO.parse(direccion, "fasta"))
-	for i in range(len(records)):
-		name = "sequence" + str(i+1) + ".fasta"
-		file = open(name, "w")
-		file.write(records[i].id + os.linesep)
-		file.write(str(records[i].seq))
+	Archive = "data/" + file
+	Direction = os.path.abspath(Archive)
+	File_records = list(SeqIO.parse(Direction, "fasta"))
+	for i in range(len(File_records)):
+		name_file = "Sequence_No_" + str(i+1) + ".fasta"
+		file = open(name_file, "w")
+		file.write(File_records[i].id + os.linesep)
+		file.write(str(File_records[i].seq))
 		file.close()
 
-#if __name__ == "__main__":
-#	extract_sequences("sequences.fasta", ".fasta")
+if __name__ == "__main__":
+	extract_sequences("sequences.fasta", ".fasta")
 
 #-----------------------FUNCION 6----------------------------
 def extract_sequences_revcomp(file):
-	x = "data/" + file
-	File_Extension = os.path.splitext(file)
-	if (File_Extension[1] != ".fasta"):
+	Archive = "data/" + file
+	Extention = os.path.splitext(file)
+	if (Extention[1] != ".fasta"):
 		print("Error el formato del archivo debe de ser .fasta")
-	direccion = os.path.abspath(x)
-	records = list(SeqIO.parse(direccion, "fasta"))
+	Direction = os.path.abspath(Archive)
+	File_records = list(SeqIO.parse(Direction, "fasta"))
 	
 	error = False
 	
-	for i in range(len(records)):
-		Nucleotides = Seq(str(records[i].seq))
+	for i in range(len(File_records)):
+		Nucleotides = Seq(str(File_records[i].seq))
 		if (Nucleotides[i] == "M"):
 				error=True
 				break
 		else:	
-			name = "sequence_revcomp" + str(i+1) + ".fasta"
-			file = open(name, "w")
-			file.write(">" + records[i].id)
+			name_file = "sequence_rev_comp_No_" + str(i+1) + ".fasta"
+			file = open(name_file, "w")
+			file.write(">" + File_records[i].id)
 			R = Nucleotides.reverse_complement()
 			file.write(str( os.linesep + R))
 			file.close()
