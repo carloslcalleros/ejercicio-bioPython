@@ -154,9 +154,10 @@ if __name__ == "__main__":
 
 #--------------------FUNCIÓN 5---------------------------------
 def extract_sequences(file, formato): 
-	#Archive = "data/" + file
+	
 	Direction = os.path.abspath(file)
 	File_records = list(SeqIO.parse(Direction, "fasta"))
+
 	for i in range(len(File_records)):
 		name_file = "Sequence_No_" + str(i+1) + ".fasta"
 		file = open(name_file, "w")
@@ -169,10 +170,12 @@ if __name__ == "__main__":
 
 #-----------------------FUNCION 6----------------------------
 def extract_sequences_revcomp(file):
-	#Archive = "data/" + file
+
 	Extention = os.path.splitext(file)
+
 	if (Extention[1] != ".fasta"):
 		print("Error el formato del archivo debe de ser .fasta")
+
 	Direction = os.path.abspath(file)
 	File_records = list(SeqIO.parse(Direction, "fasta"))
 	
