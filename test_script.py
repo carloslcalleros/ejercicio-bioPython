@@ -135,12 +135,12 @@ class Prueba(unittest.TestCase):
 		route = os.path.split(path)
 	
 		extract_sequences("data/sequences.fasta")  
-		num_Files = len(glob.glob1(route[0], "Sequence_No_*.fasta"))
+		num_Files = len(glob.glob1(route[0], "sequence*.fasta"))
 
 		c=0
 		while c < num_records:
 			Sequence = str('>' + File_records[c].id) + "\n" + str(File_records[c].seq)
-			archive = open(f"Sequence_No_{c+1}.fasta", "r") 
+			archive = open(f"sequence{c+1}.fasta", "r") 
 			Test_Sequence = str(archive.read())
 			archive.close()
 			self.assertEqual(Sequence, Test_Sequence )

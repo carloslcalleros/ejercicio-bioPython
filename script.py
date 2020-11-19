@@ -5,6 +5,7 @@ import os
 from Bio.Data import CodonTable
 
 
+
 # NC_002703.gbk solo es un archivo dentro de la carpeta data, se puede cambiar por otros archivos que esten dentro de esta carpeta 
 filename = os.path.abspath("data/NC_002703.gbk") 
 
@@ -154,49 +155,38 @@ if __name__ == "__main__":
 
 #--------------------FUNCIÓN 5---------------------------------
 def extract_sequences(file): 
-	
 	Direction = os.path.abspath(file)
 	File_records = list(SeqIO.parse(Direction, "fasta"))
 
 	for i in range(len(File_records)):
-		name_file = "Sequence_No_" + str(i+1) + ".fasta"
+		name_file = "sequence" + str(i+1) + ".fasta"
 		file = open(name_file, "w")
 		file.write('>'+File_records[i].id + os.linesep)
 		file.write(str(File_records[i].seq))
 		file.close()
-
 if __name__ == "__main__":
-	extract_sequences("data/ls_orchid.fasta")
+	extract_sequences("data/sequences.fasta")
 
 #-----------------------FUNCION 6----------------------------
 def extract_sequences_revcomp(file):
 
 	Extention = os.path.splitext(file)
-
 	if (Extention[1] != ".fasta"):
-		print("Error el formato del archivo debe de ser .fasta")
-
-	Direction = os.path.abspath(file)
-	File_records = list(SeqIO.parse(Direction, "fasta"))
+		return "Error el formato del archivo debe de ser .fasta"
+	else:
+		Direction = os.path.abspath(file)
+		File_records = list(SeqIO.parse(Direction, "fasta"))
 	
-	error = False
+		name_file = "Sequence_rev_comp" + ".fasta"
+		file = open(name_file, "w")
 	
-	for i in range(len(File_records)):
-		Nucleotides = Seq(str(File_records[i].seq))
-		if (Nucleotides[i] == "M"):
-				error=True
-				break
-		else:	
-			name_file = "sequence_rev_comp_No_" + str(i+1) + ".fasta"
-			file = open(name_file, "w")
+		for i in range(len(File_records)):
+			Nucleotides = Seq(str(File_records[i].seq))
 			file.write(">" + File_records[i].id)
 			R = Nucleotides.reverse_complement()
-			file.write(str( os.linesep + R))
-			file.close()
-
-	if (error==True):
-		print("Error: la secuencia contenida en el archivo debe de ser de nucleotidos")
+			file.write(str( os.linesep + R + os.linesep))
+		file.close()
 
 if __name__ == "__main__":
-	extract_sequences_revcomp("data/sequences.fasta")
-
+	resultado = extract_sequences_revcomp("data/ls_orchid.gbk")
+	print(resultado)
