@@ -1,5 +1,5 @@
 # Ejercicio-biopython
-Descripción del funcionamiento del scrip.py: importamos las bibliotecas necesarias para utilizar biopython, se definen variasfunciones:  
+Descripción del funcionamiento del scrip.py: importamos las bibliotecas necesarias para utilizar biopython, se definen varias funciones:  
 -**summarize_contents**: imprime un resumen del contenido de un archivo en formato .gbk (genbank), el output de esta función es un diccionario con el siguiente formato: file: [nombre de archivo] path: [ruta al archivo] num_records: [numero de registros] records: - id: [id del primer registro] name: [nombre] description: [descripción] - id: [id del segundo registro] name: [nombre] description: [descripción] - ...   
 -**concatenate_and_get_reverse_of_complement**: recibe como entrada dos secuencias de ADN, y que regresa como salida una cadena con el complemento inverso de su concatenación.   
 -**print_protein_and_codons_using_standard_table**: recibe una secuencia de DNA,  y regresa un diccionario que incluye la secuencia de RNA mensajero y la secuencia de la(s) proteína(s) correspondientes, así como los codones de paro, de acuerdo a la tabla de traducción estándar.    
