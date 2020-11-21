@@ -160,21 +160,22 @@ def extract_sequences(file,formato):
 	File_Extension = os.path.splitext(file)
 	if (formato != "genbank"):
 		return "Error el formato de salida debe de ser genbank"
-	if (File_Extension[1] != ".fasta"):
-		return "Error el formato del archivo debe de ser .fasta"
 	else:
-		GBK_File= "auxiliar.gbk"
-		SeqIO.convert(file, "fasta" , GBK_File , formato, molecule_type= "DNA")
-		Direction = os.path.abspath(GBK_File)
-		GBK_Records = list(SeqIO.parse( Direction , formato))
-		c=0
-		while c < len(GBK_Records):
-			name_file = "sequence" + str(c+1) + ".gbk"
-			file = open(name_file, "w")
-			file.write(str(GBK_Records[c].format("genbank")))
-			file.close()
-			c+=1
-		os.remove (GBK_File)
+		if (File_Extension[1] != ".fasta"):
+			return "Error la extencion del archivo debe de ser .fasta"
+		else:
+			GBK_File= "auxiliar.gbk"
+			SeqIO.convert(file, "fasta" , GBK_File , formato, molecule_type= "DNA")
+			Direction = os.path.abspath(GBK_File)
+			GBK_Records = list(SeqIO.parse( Direction , formato))
+			c=0
+			while c < len(GBK_Records):
+				name_file = "sequence" + str(c+1) + ".gbk"
+				file = open(name_file, "w")
+				file.write(str(GBK_Records[c].format("genbank")))
+				file.close()
+				c+=1
+			os.remove (GBK_File)
 if __name__ == "__main__":
 	extract_sequences("data/sequences.fasta","genbank")
 	

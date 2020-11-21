@@ -127,10 +127,10 @@ class Prueba(unittest.TestCase):
 #---------------------------------------------------------------------FUNCION 5---------------------------------------------------------------------------------------
 	def test_extract_sequences(self):
 		
-		SeqIO.convert( "data/sequences.fasta", "fasta", "file_aux" , "genbank", molecule_type= "DNA")
-		path = os.path.abspath("file_aux")
+		SeqIO.convert( "data/sequences.fasta", "fasta", "File_GBK" , "genbank", molecule_type= "DNA")
+		path = os.path.abspath("File_GBK")
 		rec = list(SeqIO.parse( path , "genbank"))
-		os.remove("file_aux")
+		os.remove("File_GBK")
 
 		num_records = len(rec)
 
@@ -151,6 +151,41 @@ class Prueba(unittest.TestCase):
 			c+=1
 		
 		self.assertEqual(num_Files, num_records)
+		self.assertRaises(Exception, extract_sequences,None,None)
 
+		E_Format= "Error el formato de salida debe de ser genbank"
+		r = extract_sequences("data/sequences.fasta", "fasta")
+		self.assertEqual(E_Format, r)
+
+		E_Format2= "Error la extencion del archivo debe de ser .fasta"
+		r2 = extract_sequences("data/ls_orchid.gbk", "genbank")
+		self.assertEqual(E_Format2, r2)
 
 #---------------------------------------------------------------------FUNCION 6---------------------------------------------------------------------------------------
+	def test_extract_sequences_revcomp(self):
+
+		Direction = os.path.abspath("data/sequences.fasta")
+		Records = list(SeqIO.parse(Direction, "fasta"))
+		Num_records = len(Records)
+
+		extract_sequences_revcomp("data/sequences.fasta")
+		Direction_2 = os.path.abspath("sequence_rev_comp.fasta") 
+		Records_Test = list(SeqIO.parse(Direction_2, "fasta"))  
+		Num_records_test = len(Records_Test)
+
+		File = open("sequence_rev_comp.fasta", "r")
+		i = 0
+		Seq_Rev_Comp = ""
+		while i > Num_records:
+			Seq_Rev_Comp += str(">" + Records[i].id) + "\n" + str(Records[i].seq)
+			Seq_Rev_Comp_Test = str(File.read())
+			self.assertEqual(Seq_Rev_Comp, Seq_Rev_Comp_Test)
+			i+=1
+		File.close()
+		self.assertEqual(Num_records, Num_records_test)
+
+		self.assertRaises(Exception, extract_sequences,None)
+
+		E_Format= "Error el formato del archivo debe de ser .fasta"
+		r = extract_sequences_revcomp("data/ls_orchid.gbk")
+		self.assertEqual(E_Format, r)
