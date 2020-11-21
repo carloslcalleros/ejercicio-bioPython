@@ -8,6 +8,7 @@ from script import concatenate_and_get_reverse_of_complement
 from script import print_protein_and_codons_using_standard_table
 from script import print_protein_and_codons_using_mitocondrial_yeast_table
 from script import extract_sequences
+from script import extract_sequences_revcomp
 
 class Prueba(unittest.TestCase):
 
@@ -121,29 +122,35 @@ class Prueba(unittest.TestCase):
 
 		self.assertRaises(Exception,print_protein_and_codons_using_mitocondrial_yeast_table, "ACCUCCAAGGAATTATTTAA ")
 		
-		self.assertRaises(Exception,print_protein_and_codons_using_mitocondrial_yeast_table, None)
-	
+		self.assertRaises(Exception,print_protein_and_codons_using_mitocondrial_yeast_table, None)	
+
 #---------------------------------------------------------------------FUNCION 5---------------------------------------------------------------------------------------
 	def test_extract_sequences(self):
 		
-		Direction = os.path.abspath("data/sequences.fasta")
+		SeqIO.convert( "data/sequences.fasta", "fasta", "file_aux" , "genbank", molecule_type= "DNA")
+		path = os.path.abspath("file_aux")
+		rec = list(SeqIO.parse( path , "genbank"))
+		os.remove("file_aux")
 
-		File_records = list(SeqIO.parse(Direction, "fasta"))
-		num_records = len(File_records)
+		num_records = len(rec)
 
 		path = os.path.abspath("ejercicio-biopython")
 		route = os.path.split(path)
-	
-		extract_sequences("data/sequences.fasta")  
-		num_Files = len(glob.glob1(route[0], "sequence*.fasta"))
+
+		extract_sequences("data/sequences.fasta", "genbank")  
+		num_Files = len(glob.glob1(route[0], "sequence*.gbk"))
 
 		c=0
 		while c < num_records:
-			Sequence = str('>' + File_records[c].id) + "\n" + str(File_records[c].seq)
-			archive = open(f"sequence{c+1}.fasta", "r") 
+
+			sequence = str(rec[c].format("genbank"))
+			archive = open(f"sequence{c+1}.gbk", "r") 
 			Test_Sequence = str(archive.read())
 			archive.close()
-			self.assertEqual(Sequence, Test_Sequence )
+			self.assertEqual(sequence, Test_Sequence)
 			c+=1
 		
 		self.assertEqual(num_Files, num_records)
+
+
+#---------------------------------------------------------------------FUNCION 6---------------------------------------------------------------------------------------

@@ -154,19 +154,30 @@ if __name__ == "__main__":
 	print(resultado)
 
 #--------------------FUNCIÓN 5---------------------------------
-def extract_sequences(file): 
+def extract_sequences(file,formato): 
+
 	Direction = os.path.abspath(file)
-	File_records = list(SeqIO.parse(Direction, "fasta"))
-
-	for i in range(len(File_records)):
-		name_file = "sequence" + str(i+1) + ".fasta"
-		file = open(name_file, "w")
-		file.write('>'+File_records[i].id + os.linesep)
-		file.write(str(File_records[i].seq))
-		file.close()
+	File_Extension = os.path.splitext(file)
+	if (formato != "genbank"):
+		return "Error el formato de salida debe de ser genbank"
+	if (File_Extension[1] != ".fasta"):
+		return "Error el formato del archivo debe de ser .fasta"
+	else:
+		GBK_File= "auxiliar.gbk"
+		SeqIO.convert(file, "fasta" , GBK_File , formato, molecule_type= "DNA")
+		Direction = os.path.abspath(GBK_File)
+		GBK_Records = list(SeqIO.parse( Direction , formato))
+		c=0
+		while c < len(GBK_Records):
+			name_file = "sequence" + str(c+1) + ".gbk"
+			file = open(name_file, "w")
+			file.write(str(GBK_Records[c].format("genbank")))
+			file.close()
+			c+=1
+		os.remove (GBK_File)
 if __name__ == "__main__":
-	extract_sequences("data/sequences.fasta")
-
+	extract_sequences("data/sequences.fasta","genbank")
+	
 #-----------------------FUNCION 6----------------------------
 def extract_sequences_revcomp(file):
 
@@ -177,7 +188,7 @@ def extract_sequences_revcomp(file):
 		Direction = os.path.abspath(file)
 		File_records = list(SeqIO.parse(Direction, "fasta"))
 	
-		name_file = "Sequence_rev_comp" + ".fasta"
+		name_file = "sequence_rev_comp" + ".fasta"
 		file = open(name_file, "w")
 	
 		for i in range(len(File_records)):
@@ -188,5 +199,4 @@ def extract_sequences_revcomp(file):
 		file.close()
 
 if __name__ == "__main__":
-	resultado = extract_sequences_revcomp("data/ls_orchid.gbk")
-	print(resultado)
+	extract_sequences_revcomp("data/sequences.fasta")
